@@ -23,10 +23,10 @@ const colorMap = {
 
 export function StatsCard({ title, value, icon: Icon, trend, color = "primary" }: StatsCardProps) {
   return (
-    <div className="bg-card-bg p-6 rounded-xl border border-slate-100 shadow-soft transition-all hover:shadow-md">
-      <div className="flex items-center justify-between mb-4">
-        <div className={cn("p-2.5 rounded-lg", colorMap[color])}>
-          <Icon size={20} />
+    <div className="bg-card-bg p-4 sm:p-6 rounded-xl border border-slate-100 shadow-soft transition-all hover:shadow-md">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className={cn("p-2 sm:p-2.5 rounded-lg", colorMap[color])}>
+          <Icon size={16} className="sm:size-12" />
         </div>
         {trend && (
           <div className={cn(
@@ -38,8 +38,8 @@ export function StatsCard({ title, value, icon: Icon, trend, color = "primary" }
         )}
       </div>
       <div>
-        <p className="text-sm font-medium text-text-muted">{title}</p>
-        <p className="text-2xl font-bold text-text-main mt-1">{value}</p>
+        <p className="text-xs sm:text-sm font-medium text-text-muted">{title}</p>
+        <p className="text-lg sm:text-2xl font-bold text-text-main mt-1">{value}</p>
       </div>
     </div>
   );

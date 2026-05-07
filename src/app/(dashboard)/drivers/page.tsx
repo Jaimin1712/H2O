@@ -211,14 +211,14 @@ export default function DriversPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text-main">Drivers</h1>
-          <p className="text-text-muted">Manage your delivery team and their login credentials.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-text-main">Drivers</h1>
+          <p className="text-sm sm:text-base text-text-muted">Manage your delivery team and their login credentials.</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm self-start md:self-auto"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm self-start"
         >
           <Plus size={18} />
           Add Driver
@@ -226,8 +226,8 @@ export default function DriversPage() {
       </div>
 
       {/* Search / filter bar */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border border-slate-100 shadow-soft">
-        <div className="relative w-full md:w-96">
+      <div className="flex flex-col gap-4 bg-white p-4 rounded-xl border border-slate-100 shadow-soft">
+        <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
           <input
             type="text"
@@ -237,12 +237,12 @@ export default function DriversPage() {
             className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           />
         </div>
-        <div className="flex items-center gap-2 w-full md:w-auto">
-          <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+        <div className="flex flex-col sm:flex-row gap-2 w-full">
+          <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
             <Filter size={16} />
             Filter
           </button>
-          <button className="flex-1 md:flex-none px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+          <button className="flex-1 sm:flex-none px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
             Export CSV
           </button>
         </div>
@@ -277,6 +277,7 @@ export default function DriversPage() {
             },
             {
               header: 'Contact',
+              mobileLabel: 'Phone',
               accessor: (d: Driver) => (
                 <div className="text-text-muted flex items-center gap-1 text-sm font-medium">
                   <Phone size={14} /> {d.phone || 'No phone'}
@@ -285,6 +286,7 @@ export default function DriversPage() {
             },
             {
               header: 'Vehicle',
+              mobileLabel: 'Vehicle No.',
               accessor: (d: Driver) => (
                 <div className="flex items-center gap-1 text-sm text-text-muted">
                   <Car size={14} />
@@ -306,6 +308,7 @@ export default function DriversPage() {
             },
             {
               header: 'Joined Date',
+              mobileLabel: 'Joined',
               accessor: (d: Driver) => (
                 <span className="text-sm text-text-muted">
                   {d.created_at

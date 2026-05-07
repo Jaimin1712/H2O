@@ -342,22 +342,22 @@ export default function CustomersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text-main">Customers</h1>
-          <p className="text-text-muted">Manage your customer base and delivery locations.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-text-main">Customers</h1>
+          <p className="text-sm sm:text-base text-text-muted">Manage your customer base and delivery locations.</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm self-start md:self-auto"
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm self-start"
         >
           <Plus size={18} />
           Add Customer
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border border-slate-100 shadow-soft">
-        <div className="relative w-full md:w-96">
+      <div className="flex flex-col gap-4 bg-white p-4 rounded-xl border border-slate-100 shadow-soft">
+        <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
           <input
             type="text"
@@ -367,7 +367,7 @@ export default function CustomersPage() {
             className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           />
         </div>
-        <div className="flex items-center gap-2 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 w-full">
           <button className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors whitespace-nowrap">
             View on Map
           </button>
@@ -395,6 +395,7 @@ export default function CustomersPage() {
             },
             {
               header: 'Contact',
+              mobileLabel: 'Phone',
               accessor: (c: Customer) => (
                 <div className="space-y-0.5">
                   {c.phone && <p className="text-xs text-text-main font-medium flex items-center gap-1"><Phone size={12} /> {c.phone}</p>}
@@ -403,6 +404,7 @@ export default function CustomersPage() {
             },
             {
               header: 'Subscription',
+              mobileLabel: 'Plan',
               accessor: (c: Customer) => (
                 <div>
                   <p className="text-sm font-medium capitalize text-text-main">{c.delivery_type?.replace('_', ' ')} {c.delivery_time && `at ${c.delivery_time}`}</p>
@@ -419,6 +421,7 @@ export default function CustomersPage() {
             },
             {
               header: 'Joined Date',
+              mobileLabel: 'Joined',
               accessor: (c: Customer) => (
                 <span className="text-sm text-text-muted">
                   {c.created_at ? new Date(c.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A'}
@@ -521,7 +524,7 @@ export default function CustomersPage() {
               className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-text-main">Delivery Type</label>
               <select
@@ -587,7 +590,7 @@ export default function CustomersPage() {
                 className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 sm:col-span-2">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-semibold text-text-main">Paid Amount (₹)</label>
                 <button

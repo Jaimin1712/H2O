@@ -187,36 +187,34 @@ export default function DeliveriesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text-main">Deliveries</h1>
-          <p className="text-text-muted">Monitor and schedule water deliveries in real-time.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-text-main">Deliveries</h1>
+          <p className="text-sm sm:text-base text-text-muted">Monitor and schedule water deliveries in real-time.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={() => handleOpenModal()}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
-          >
-            <Plus size={18} />
-            Schedule Delivery
-          </button>
-        </div>
+        <button 
+          onClick={() => handleOpenModal()}
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm self-start"
+        >
+          <Plus size={18} />
+          Schedule Delivery
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           { label: 'Total Tasks', value: stats.total, icon: Clock, color: 'primary' },
           { label: 'Completed', value: stats.completed, icon: CheckCircle2, color: 'success' },
           { label: 'Running', value: stats.running, icon: PlayCircle, color: 'secondary' },
           { label: 'Pending', value: stats.pending, icon: AlertCircle, color: 'warning' },
         ].map((stat, i) => (
-          <div key={i} className="bg-white p-4 rounded-xl border border-slate-100 shadow-soft flex items-center gap-4">
-            <div className={`p-2 rounded-lg bg-primary/10 text-primary`}>
-              <stat.icon size={20} />
+          <div key={i} className="bg-white p-3 sm:p-4 rounded-xl border border-slate-100 shadow-soft flex items-center gap-3 sm:gap-4">
+            <div className={`p-1.5 sm:p-2 rounded-lg bg-primary/10 text-primary`}>
+              <stat.icon size={16} className="sm:size-20" />
             </div>
             <div>
-              <p className="text-sm font-medium text-text-muted">{stat.label}</p>
-              <p className="text-xl font-bold text-text-main">{stat.value}</p>
+              <p className="text-xs sm:text-sm font-medium text-text-muted">{stat.label}</p>
+              <p className="text-lg sm:text-xl font-bold text-text-main">{stat.value}</p>
             </div>
           </div>
         ))}
@@ -244,6 +242,7 @@ export default function DeliveriesPage() {
             },
             { 
               header: 'Driver', 
+              mobileLabel: 'Assigned',
               accessor: (d: Delivery) => (
                 <div className="flex items-center gap-2">
                   <User size={14} className="text-text-muted" />
@@ -251,7 +250,11 @@ export default function DeliveriesPage() {
                 </div>
               )
             },
-            { header: 'Bottles', accessor: (d: Delivery) => <span className="font-medium">{d.bottles_delivered}</span> },
+            { 
+              header: 'Bottles', 
+              mobileLabel: 'Quantity',
+              accessor: (d: Delivery) => <span className="font-medium">{d.bottles_delivered}</span> 
+            },
             { 
               header: 'Status', 
               accessor: (d: Delivery) => (
@@ -267,6 +270,7 @@ export default function DeliveriesPage() {
             },
             { 
               header: 'Scheduled', 
+              mobileLabel: 'Date',
               accessor: (d: Delivery) => (
                 <div className="flex flex-col">
                   <span className="text-sm text-text-muted">
@@ -350,7 +354,7 @@ export default function DeliveriesPage() {
               ))}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-text-main">Scheduled Date & Time</label>
               <input 
@@ -373,7 +377,7 @@ export default function DeliveriesPage() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-text-main">Type</label>
               <select 

@@ -116,16 +116,16 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text-main">Dashboard Overview</h1>
-          <p className="text-text-muted">Welcome back! Here's what's happening today.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-text-main">Dashboard Overview</h1>
+          <p className="text-sm sm:text-base text-text-muted">Welcome back! Here's what's happening today.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <button className="flex items-center justify-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
             Download Report
           </button>
-          <Link href="/deliveries" className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm">
+          <Link href="/deliveries" className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm">
             <Plus size={18} />
             New Delivery
           </Link>
@@ -133,7 +133,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatsCard 
           title="Total Customers" 
           value={stats.totalCustomers.toString()} 
@@ -160,17 +160,18 @@ export default function DashboardPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
         {/* Recent Deliveries Table */}
-        <div className="lg:col-span-2 bg-card-bg rounded-xl border border-slate-100 shadow-soft overflow-hidden">
+        <div className="xl:col-span-2 bg-card-bg rounded-xl border border-slate-100 shadow-soft overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
             <h2 className="font-bold text-text-main">Recent Deliveries</h2>
             <Link href="/deliveries" className="text-primary text-sm font-medium hover:underline flex items-center gap-1">
               View All <ArrowRight size={14} />
             </Link>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+          {/* Desktop Table View */}
+          <div className="hidden lg:block overflow-x-auto -mx-6 px-6">
+            <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr className="bg-slate-50/50">
                   <th className="px-6 py-3 text-xs font-semibold text-text-muted uppercase tracking-wider">Customer</th>
@@ -216,13 +217,76 @@ export default function DashboardPage() {
               </tbody>
             </table>
           </div>
+
+          {/* Mobile Card View */}
+          <div className="lg:hidden px-6 pb-4">
+            <div className="space-y-3">
+              {recentDeliveries.length > 0 ? recentDeliveries.map((activity) => (
+                <div key={activity.id} className="bg-slate-50 rounded-lg p-4 border border-slate-100">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <p className="font-semibold text-text-main text-sm">{activity.customer}</p>
+                      <p className="text-xs text-text-muted mt-1">{activity.time}</p>
+                    </div>
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                      activity.status === 'completed' ? 'bg-success/10 text-success' :
+                      activity.status === 'in_progress' ? 'bg-secondary/10 text-secondary' :
+                      activity.status === 'pending' ? 'bg-warning/10 text-warning' :
+                      'bg-error/10 text-error'
+                    }`}>
+                      {activity.status.replace('_', ' ')}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-xs text-text-muted">
+                        <span className="font-medium">Driver:</span> {activity.driver}
+                      </p>
+                      <p className="text-xs text-text-muted">
+                        <span className="font-medium">Amount:</span> {activity.amount}
+                      </p>
+                    </div>
+                    <button className="p-1.5 hover:bg-slate-100 rounded text-text-muted">
+                      <MoreVertical size={14} />
+                    </button>
+                  </div>
+                </div>
+              )) : (
+                <div className="text-center py-8">
+                  <p className="text-text-muted text-sm italic">No recent deliveries found.</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Quick Actions & Low Stock */}
         <div className="space-y-6">
           <div className="bg-card-bg rounded-xl border border-slate-100 shadow-soft p-6">
             <h2 className="font-bold text-text-main mb-4">Quick Actions</h2>
-            <div className="grid grid-cols-2 gap-3">
+            {/* Mobile View - Horizontal Scroll */}
+            <div className="lg:hidden">
+              <div className="flex gap-3 overflow-x-auto pb-2 -mx-6 px-6">
+                <Link href="/customers" className="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 hover:border-primary/30 hover:bg-primary/5 transition-all group text-center min-w-[100px] flex-shrink-0">
+                  <Users className="text-text-muted group-hover:text-primary mb-2" size={20} />
+                  <span className="text-xs font-medium text-text-muted group-hover:text-text-main">Add Customer</span>
+                </Link>
+                <Link href="/drivers" className="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 hover:border-primary/30 hover:bg-primary/5 transition-all group text-center min-w-[100px] flex-shrink-0">
+                  <UserSquare2 className="text-text-muted group-hover:text-primary mb-2" size={20} />
+                  <span className="text-xs font-medium text-text-muted group-hover:text-text-main">Add Driver</span>
+                </Link>
+                <Link href="/inventory" className="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 hover:border-primary/30 hover:bg-primary/5 transition-all group text-center min-w-[100px] flex-shrink-0">
+                  <Package className="text-text-muted group-hover:text-primary mb-2" size={20} />
+                  <span className="text-xs font-medium text-text-muted group-hover:text-text-main">Update Stock</span>
+                </Link>
+                <Link href="/deliveries" className="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 hover:border-primary/30 hover:bg-primary/5 transition-all group text-center min-w-[100px] flex-shrink-0">
+                  <Truck className="text-text-muted group-hover:text-primary mb-2" size={20} />
+                  <span className="text-xs font-medium text-text-muted group-hover:text-text-main">Route Plan</span>
+                </Link>
+              </div>
+            </div>
+            {/* Desktop View - Grid */}
+            <div className="hidden lg:grid grid-cols-2 gap-3">
               <Link href="/customers" className="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 hover:border-primary/30 hover:bg-primary/5 transition-all group text-center">
                 <Users className="text-text-muted group-hover:text-primary mb-2" size={20} />
                 <span className="text-xs font-medium text-text-muted group-hover:text-text-main">Add Customer</span>

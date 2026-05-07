@@ -112,10 +112,10 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6 max-w-4xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-text-main">Settings</h1>
-        <p className="text-text-muted">Manage your business profile and preferences.</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-text-main">Settings</h1>
+        <p className="text-sm sm:text-base text-text-muted">Manage your business profile and preferences.</p>
       </div>
 
       <div className="bg-white rounded-2xl shadow-soft border border-slate-100 overflow-hidden">
@@ -137,7 +137,7 @@ export default function SettingsPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <label className="block text-sm font-semibold text-text-main mb-2">Business Name</label>
               <div className="relative">
@@ -231,7 +231,7 @@ export default function SettingsPage() {
               </div>
             </div>
             
-            <div className="md:col-span-2">
+            <div className="sm:col-span-2">
               <label className="block text-sm font-semibold text-text-main mb-2">Business Address</label>
               <div className="relative">
                 <textarea

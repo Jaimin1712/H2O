@@ -148,19 +148,19 @@ export default function InventoryPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text-main">Inventory Management</h1>
-          <p className="text-text-muted">Track stock levels, equipment, and bottle returns.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-text-main">Inventory Management</h1>
+          <p className="text-sm sm:text-base text-text-muted">Track stock levels, equipment, and bottle returns.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button className="flex items-center justify-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
             <History size={16} />
             Stock History
           </button>
           <button 
             onClick={() => handleOpenModal()}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
           >
             <Package size={18} />
             Add New Item
@@ -168,7 +168,7 @@ export default function InventoryPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <StatsCard title="Total Stock" value={totalBottles.toString()} icon={Package} color="primary" />
         <StatsCard title="Available Stock" value={Math.max(0, availableStock).toString()} icon={ArrowUpRight} color="success" />
         <StatsCard title="Booked" value={bookedStock.toString()} icon={AlertTriangle} color="warning" />
@@ -204,6 +204,7 @@ export default function InventoryPage() {
               },
               { 
                 header: 'Stock Level', 
+                mobileLabel: 'Stock',
                 accessor: (item: InventoryItem) => (
                   <div className="flex items-center gap-4">
                     <span className="font-medium text-text-main">{item.stock_quantity}</span>
@@ -212,6 +213,7 @@ export default function InventoryPage() {
               },
               {
                 header: 'Created At',
+                mobileLabel: 'Created',
                 accessor: (item: InventoryItem) => (
                   <span className="text-sm text-text-muted">
                     {item.created_at ? new Date(item.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A'}
@@ -260,7 +262,7 @@ export default function InventoryPage() {
               className="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-text-main">Capacity</label>
               <input 
